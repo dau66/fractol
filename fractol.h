@@ -1,8 +1,8 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
-# define SIZE 4
-# define PIXEL 800
-# define C_COUNT 50
+# define SIZE 8
+# define PIXEL 600
+# define C_COUNT 100
 
 typedef struct s_data
 {
@@ -19,7 +19,7 @@ typedef struct s_data
 # include <stdio.h>
 
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int			create_trgb(int r, int g, int b);
-void		m_fractol(t_data *data);
-
+int			create_trgb(int t, int r, int g, int b);
+void		mandel(t_data *data);
+void		julia(t_data *data, double first_x, double first_y);
 #endif

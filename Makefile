@@ -7,6 +7,7 @@ NAME = mlx-test
 SRCS = visual.c \
     handle_window_funcs.c \
     make_fractol.c \
+    julia.c \
 
 OBJS = $(SRCS:.c=.o)
 INCLUDE = /opt/X11/include
