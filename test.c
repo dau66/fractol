@@ -1,55 +1,67 @@
-#include "fractol.h"
+#include <math.h>
+#include <stdio.h>
 
-__attribute__((destructor)) static void destructor()
+typedef struct RGBColor
 {
-	system("leaks -q a.out");
-}
+	int		r;
+	int		g;
+	int		b;
+}			RGBColor;
 
-void	rere(double first_x, double first_y)
+static 
+
+RGBColor	hsv2rgb(float H, float S, float V)
 {
-	int		i;
-	int		j;
-	int		k;
-	double	x;
-	double	y;
-	double	_a;
-	double	_b;
+	float		h;
+	float		s;
+	float		v;
+	int			i;
+	float		f;
+	float		p;
+	float		q;
+	float		t;
+	RGBColor	color;
 
-	x = 0;
-	y = 0;
-	i = 0;
-	j = 0;
-	_a = 0;
-	for (i = 0; PIXEL > i; i++)
+	float r, g, b;
+	h = H / 360;
+	s = S / 100;
+	v = V / 100;
+	i = floor(h * 6);
+	f = h * 6 - i;
+	p = v * (1 - s);
+	q = v * (1 - f * s);
+	t = v * (1 - (1 - f) * s);
+	switch (i % 6)
 	{
-		x = (double)((double)i * (double)(SIZE)) / (double)PIXEL
-			- ((double)((double)SIZE / 2.0));
-		for (j = 0; PIXEL > j; j++)
-		{
-			y = (double)((double)j * (double)SIZE) / (double)PIXEL
-				- (double)((double)SIZE / 2.0);
-			printf("x:%f y:%f\n", x, y);
-			if(i == 6)
-			  break ;
-			for (k = 0; 1 > k; k++)
-			{
-				_a = x;
-				_b = y;
-				x = pow(_a, 2) - pow(_b, 2) + first_x;
-				y = (double)2 * _a * _b + first_y;
-				if (pow(x, 2) + pow(y, 2) > 4)
-					break ;
-			}
-		}
-		// printf("x:%f y:%f\n", x, y);
+	case 0:
+		r = v, g = t, b = p;
+		break ;
+	case 1:
+		r = q, g = v, b = p;
+		break ;
+	case 2:
+		r = p, g = v, b = t;
+		break ;
+	case 3:
+		r = p, g = q, b = v;
+		break ;
+	case 4:
+		r = t, g = p, b = v;
+		break ;
+	case 5:
+		r = v, g = p, b = q;
+		break ;
 	}
+	color.r = r * 255;
+	color.g = g * 255;
+	color.b = b * 255;
+	return (color);
 }
 
 int	main(void)
 {
-	double x, y;
+	RGBColor hsv;
 
-	x = 2;
-	y = 2;
-	rere(x, y);
+	hsv = hsv2rgb(300, 50, 50);
+	printf("%d %d %d\n", hsv.r, hsv.g, hsv.b);
 }
