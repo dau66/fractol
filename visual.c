@@ -6,7 +6,7 @@
 /*   By: ksho <ksho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 18:45:36 by ksho              #+#    #+#             */
-/*   Updated: 2023/10/15 20:18:27 by ksho             ###   ########.fr       */
+/*   Updated: 2023/10/18 21:59:49 by ksho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,8 @@ int	main(void)
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
 	
-	julia(&img, 0.01,0.01);
-	// julia(&img,0.1,0.2);
-	// while(i < 100)
-	// {
-	// 	while(j < 100)
-	// 	{							
-	// 		my_mlx_pixel_put(&img, i, j, 0x00FF0000);
-	// 		j ++;
-	// 	}
-	// 	j = 0;
-	// 	i ++;
-	// }
+	// mandel(&img);
+	julia(&img,0.1,0.4);
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(mlx);
 }

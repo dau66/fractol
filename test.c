@@ -1,67 +1,61 @@
-#include <math.h>
-#include <stdio.h>
+typedef struct {
+    int r;
+    int g;
+    int b;
+} RGBColor;
 
-typedef struct RGBColor
-{
-	int		r;
-	int		g;
-	int		b;
-}			RGBColor;
-
-static 
-
-RGBColor	hsv2rgb(float H, float S, float V)
-{
-	float		h;
-	float		s;
-	float		v;
-	int			i;
-	float		f;
-	float		p;
-	float		q;
-	float		t;
-	RGBColor	color;
-
-	float r, g, b;
-	h = H / 360;
-	s = S / 100;
-	v = V / 100;
-	i = floor(h * 6);
-	f = h * 6 - i;
-	p = v * (1 - s);
-	q = v * (1 - f * s);
-	t = v * (1 - (1 - f) * s);
-	switch (i % 6)
-	{
-	case 0:
-		r = v, g = t, b = p;
-		break ;
-	case 1:
-		r = q, g = v, b = p;
-		break ;
-	case 2:
-		r = p, g = v, b = t;
-		break ;
-	case 3:
-		r = p, g = q, b = v;
-		break ;
-	case 4:
-		r = t, g = p, b = v;
-		break ;
-	case 5:
-		r = v, g = p, b = q;
-		break ;
-	}
-	color.r = r * 255;
-	color.g = g * 255;
-	color.b = b * 255;
-	return (color);
+int roundToByte(float value) {
+    return (int)(value * 255);
 }
 
-int	main(void)
-{
-	RGBColor hsv;
+RGBColor hsv2rgb(float H, float S, float V) {
+    float h = H / 360;
+    float s = S / 100;
+    float v = V / 100;
+    
+    int i = (int)(h * 6);
+    float f = h * 6 - i;
+    float p = v * (1 - s);
+    float q = v * (1 - f * s);
+    float t = v * (1 - (1 - f) * s);
 
-	hsv = hsv2rgb(300, 50, 50);
-	printf("%d %d %d\n", hsv.r, hsv.g, hsv.b);
+    float r, g, b;
+
+    if (i == 0) {
+        r = v;
+        g = t;
+        b = p;
+    } else if (i == 1) {
+        r = q;
+        g = v;
+        b = p;
+    } else if (i == 2) {
+        r = p;
+        g = v;
+        b = t;
+    } else if (i == 3) {
+        r = p;
+        g = q;
+        b = v;
+    } else if (i == 4) {
+        r = t;
+        g = p;
+        b = v;
+    } else {
+        r = v;
+        g = p;
+        b = q;
+    }
+
+    RGBColor color;
+    color.r = roundToByte(r);
+    color.g = roundToByte(g);
+    color.b = roundToByte(b);
+    return color;
+}
+
+#include <stdio.h>
+int main()
+{
+	
 }
