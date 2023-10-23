@@ -9,14 +9,22 @@ SRCS = visual.c \
     mandel.c \
     julia.c \
     color_hand.c\
+    key_treat.c\
+    error_hand.c\
+    atod.c\
+    treat_sets.c\
+    set_rgb.c\
 
+OBJ_DIR = fractol_obj
 OBJS = $(SRCS:.c=.o)
-INCLUDE = /opt/X11/include
+# OBJS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))
+
+INCLUDE = /opt/X11/include/X11
 
 LFLAGS = -I libft -L libft -lft \
          -I $(INCFLAGS) \
-         -I /usr/local/include -L /usr/local/lib \
-         -l mlx -framework OpenGL -framework Appkit
+         -I /usr/local/include -L /usr/local/lib  \
+         -L ./minilibx -l mlx -framework OpenGL -framework Appkit -L/opt/X11/lib -lX11
 
 ifeq ($(UNAME), Darwin)
     # mac
@@ -41,6 +49,7 @@ $(NAME): $(OBJS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
+
 
 clean:
 	$(RM) $(OBJS)

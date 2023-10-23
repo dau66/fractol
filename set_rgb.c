@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_window_funcs.c                              :+:      :+:    :+:   */
+/*   set_rgb.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksho <ksho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/13 17:38:58 by ksho              #+#    #+#             */
-/*   Updated: 2023/10/23 18:26:19 by ksho             ###   ########.fr       */
+/*   Created: 2023/10/23 18:12:09 by ksho              #+#    #+#             */
+/*   Updated: 2023/10/23 18:26:28 by ksho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	hsv_to_rgb(double h, double s, double v)
+t_RGBColor	set_rgb(int r, int g, int b)
 {
-	t_RGBColor	rgb;
+	t_RGBColor	color;
 
-	rgb = hsv2rgb(h, s, v);
-	return ((int)rgb.r << 16 | (int)rgb.g << 8 | (int)rgb.b);
-}
-
-void	my_mlx_pixel_put(t_windows *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+	color.r = r;
+	color.g = g;
+	color.b = b;
+	return (color);
 }

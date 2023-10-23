@@ -6,7 +6,7 @@
 /*   By: ksho <ksho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 18:09:57 by ksho              #+#    #+#             */
-/*   Updated: 2023/10/18 21:57:51 by ksho             ###   ########.fr       */
+/*   Updated: 2023/10/23 18:19:17 by ksho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ static void	calculate_complex_square(double *a, double *b)
 	*b = (double)2 * _a * (*b);
 }
 
-static void	calculate_pixel_coordinates(int i, int j, double *x, double *y)
-{
-	*x = ((double)i * SIZE / PIXEL) - (SIZE / 2.0);
-	*y = ((double)(PIXEL - j) * SIZE / PIXEL) - (SIZE
-			/ 2.0);
-}
+// static void	calculate_pixel_coordinates(int i, int j, double *x, double *y)
+// {
+// 	*x = ((double)i * SIZE / PIXEL) - (SIZE / 2.0);
+// 	*y = ((double)(PIXEL - j) * SIZE / PIXEL) - (SIZE / 2.0);
+// }
 
 static int	is_julia(double a, double b, double first_x, double first_y)
 {
@@ -50,7 +49,7 @@ static int	is_julia(double a, double b, double first_x, double first_y)
 	return (-1);
 }
 
-void	julia(t_data *data, double first_x, double first_y)
+void	julia(t_windows *data, double first_x, double first_y)
 {
 	int		i;
 	int		j;
@@ -59,18 +58,22 @@ void	julia(t_data *data, double first_x, double first_y)
 	double	y;
 
 	i = 0;
+	data->what_sets = 'j';
 	while (i < PIXEL)
 	{
 		j = 0;
 		while (j < PIXEL)
 		{
-			calculate_pixel_coordinates(i, j, &x, &y);
+			x = (double)i * (SIZE * pow(1.1, data->zoom_in_out)) / (double)PIXEL
+				- (SIZE * pow(1.1, data->zoom_in_out) / 2.0);
+			y = (double)j * (SIZE * pow(1.1, data->zoom_in_out)) / (double)PIXEL
+				- (SIZE * pow(1.1, data->zoom_in_out) / 2.0);
 			k = is_julia(x, y, first_x, first_y);
 			if (k != -1)
-				my_mlx_pixel_put(data, i, j, hsv_to_rgb(1000 * k, 100, 100));
+				my_mlx_pixel_put(data, i, j, hsv_to_rgb((data->change_color + 20
+							* k), 100, 100));
 			j++;
 		}
 		i++;
 	}
 }
-

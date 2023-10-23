@@ -6,82 +6,49 @@
 /*   By: ksho <ksho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 18:45:36 by ksho              #+#    #+#             */
-/*   Updated: 2023/10/18 21:59:49 by ksho             ###   ########.fr       */
+/*   Updated: 2023/10/23 18:24:43 by ksho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "fractol.h"
 
-__attribute__((destructor))
-static void destructor() {
-    system("leaks -q a.out");
-}
-
-
-
-int	main(void)
-{
-
-	void	*mlx;
-	void	*mlx_win;
-	t_data	img;
-
-	
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, PIXEL, PIXEL, "Hello world!");
-	img.img = mlx_new_image(mlx, PIXEL, PIXEL);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
-	
-	// mandel(&img);
-	julia(&img,0.1,0.4);
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
-}
-
-// int main()
+// __attribute__((destructor)) static void destructor()
 // {
-//     double re;
-//     double im;
-//     int i = 0;
-//     int j = 0;
-//     int k = 0;
-//     double a = 0;
-//     double b = 0;
-//     double _a = 0;
-//     double _b = 0;
-    
-//     void *mlx = mlx_init();
-//     void *win = mlx_new_window(mlx, PIXEL,  PIXEL, "Tutorial Window - Draw Pixel");
-//     while(i < PIXEL)
-//     {
-//         re = (i * SIZE) / (PIXEL / 2) - (SIZE / 2);
-//         while(j < PIXEL)
-//         {
-//             im = (j * SIZE) / (PIXEL / 2)  - (SIZE / 2);
-//             a = 0;
-//             b = 0;
-//             while(k < C_COUNT)
-//             {
-//                 _a = a * a - b * b + re;
-//                 _b = 2 * a * b+im;
-//                 a = _a;
-//                 b = _b;
-//                 if(a * a + b * b > 4)
-//                 {
-//                     mlx_pixel_put(mlx, win, i , j, 0xFFFFFF);
-//                     break;
-//                 }
-//                 k ++;
-//             }
-//             k = 0;
-//             j ++;
-//         }
-//             j = 0;
-//             i ++;
-//     }
-//    mlx_string_put(mlx, win, 320,320, 0,"abcderf");
-//     mlx_loop(mlx);
+// 	system("leaks -q mlx-test");
 // }
+
+static void	julia_setting(t_windows *param, double x, double y)
+{
+	param->julia_x = x;
+	param->julia_y = y;
+}
+
+int	main(int argc, char **argv)
+{
+	t_windows	window;
+
+	window.mouse_x = 0;
+	window.mouse_y = 0;
+	window.mlx = mlx_init();
+	window.win = mlx_new_window(window.mlx, PIXEL, PIXEL, "Hello world!");
+	window.img = mlx_new_image(window.mlx, PIXEL, PIXEL);
+	window.addr = mlx_get_data_addr(window.img, &window.bits_per_pixel,
+			&window.line_length, &window.endian);
+	if (argc == 2 && argv[1][0] == 'm')
+		mandel(&window);
+	else if (argc == 4 && argv[1][0] == 'j')
+	{
+		julia_setting(&window, ft_atod(argv[2]), ft_atod(argv[3]));
+		julia(&window, window.julia_x, window.julia_y);
+	}
+	else
+		error_output();
+	mlx_put_image_to_window(window.mlx, window.win, window.img, 0, 0);
+	mlx_hook(window.win, KeyPress, KeyPressMask, change_color, &window);
+	mlx_hook(window.win, DestroyNotify, StructureNotifyMask, close_window,
+		NULL);
+	mlx_mouse_hook(window.win, zoom_in_out, &window);
+	mlx_loop(window.mlx);
+}
+
+// i

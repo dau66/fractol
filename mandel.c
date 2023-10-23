@@ -6,14 +6,14 @@
 /*   By: ksho <ksho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 17:59:30 by ksho              #+#    #+#             */
-/*   Updated: 2023/10/18 21:59:13 by ksho             ###   ########.fr       */
+/*   Updated: 2023/10/23 18:22:08 by ksho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <math.h>
 
-void	calculate_complex_square(double *a, double *b)
+static void	calculate_complex_square(double *a, double *b)
 {
 	double	_a;
 
@@ -22,13 +22,13 @@ void	calculate_complex_square(double *a, double *b)
 	*b = (double)2 * _a * (*b);
 }
 
-void	calculate_pixel_coordinates(int i, int j, double *x, double *y)
-{
-	*x = (double)i * SIZE / PIXEL - SIZE / 2.0;
-	*y = (double)j * SIZE / PIXEL - SIZE / 2.0;
-}
+// static void	calculate_pixel_coordinates(int i, int j, double *x, double *y)
+// {
+// 	*x = (double)i * SIZE / PIXEL - SIZE / 2.0;
+// 	*y = (double)j * SIZE / PIXEL - SIZE / 2.0;
+// }
 
-int	is_mandelbrot(double x, double y)
+static int	is_mandelbrot(double x, double y)
 {
 	double	a;
 	double	b;
@@ -53,27 +53,31 @@ int	is_mandelbrot(double x, double y)
 	return (-1);
 }
 
-void	mandel(t_data *data)
+void	mandel(t_windows *data)
 {
-	int	i;
-	int	j;
-	int	k;
+	int		i;
+	int		j;
+	int		k;
+	double	x;
+	double	y;
 
 	i = 0;
+	data->what_sets = 'm';
 	while (i < PIXEL)
 	{
 		j = 0;
 		while (j < PIXEL)
 		{
-			double x;
-			double y;
-			calculate_pixel_coordinates(i, j, &x, &y);
+			x = i * (SIZE * pow(1.1, data->zoom_in_out)) / (double)PIXEL
+				- ((SIZE * pow(1.1, data->zoom_in_out) / 2.0));
+			y = j * (SIZE * pow(1.1, data->zoom_in_out)) / (double)PIXEL
+				- ((SIZE * pow(1.1, data->zoom_in_out) / 2.0));
 			k = is_mandelbrot(x, y);
 			if (k != -1)
-				my_mlx_pixel_put(data, i, j, hsv_to_rgb(10 * k, 50, 50));
+				my_mlx_pixel_put(data, i, j, hsv_to_rgb((data->change_color + 10
+							* k), 100, 100));
 			j++;
 		}
 		i++;
 	}
 }
-
