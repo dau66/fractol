@@ -8,23 +8,22 @@ SRCS = visual.c \
     handle_window_funcs.c \
     mandel.c \
     julia.c \
-    color_hand.c\
-    key_treat.c\
-    error_hand.c\
-    atod.c\
-    treat_sets.c\
-    set_rgb.c\
+    color_hand.c \
+    key_treat.c \
+    error_hand.c \
+    atod.c \
+    treat_sets.c \
+    set_rgb.c
 
-OBJ_DIR = fractol_obj
-OBJS = $(SRCS:.c=.o)
-# OBJS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))
+OBJ_DIR = objs
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 INCLUDE = /opt/X11/include/X11
 
 LFLAGS = -I libft -L libft -lft \
          -I $(INCFLAGS) \
          -I /usr/local/include -L /usr/local/lib  \
-         -L ./minilibx -l mlx -framework OpenGL -framework Appkit -L/opt/X11/lib -lX11
+         -L ./minilibx -l mlx -framework OpenGL -framework Appkit -L /opt/X11/lib -lX11
 
 ifeq ($(UNAME), Darwin)
     # mac
@@ -38,21 +37,19 @@ else
     LFLAGS += -lbsd
 endif
 
-# オブジェクトファイルつくる時-lのフラグはつけない。実行ファイルをつくる時つける。
-#  LDFLAGSで-Lでライブラリを入れる。そうするとわかりやすい。LDFLAGS += で追加できる
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(MAKE) -C libft
 	$(MAKE) -C minilibx
-	$(CC) -o $(NAME) $(CFLAGS) $(OBJS) $(LFLAGS) $(LIBFT) $(MLX)
+	$(CC) -o $(NAME) $(OBJS) $(CFLAGS) $(LFLAGS) $(LIBFT) $(MLX)
 
-%.o: %.c
+$(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) -r $(OBJ_DIR)/*.o
 	$(MAKE) -C libft clean
 
 fclean: clean
