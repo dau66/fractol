@@ -17,10 +17,11 @@
 # define C_COUNT 100
 # include "libft/libft.h"
 # include "minilibx/mlx.h"
+#include "minilibx/mlx_int.h"
 # include <float.h>
 # include <math.h>
 # include <stdio.h>
-
+#include <libc.h>
 typedef struct HSVColor
 {
 	double	h;

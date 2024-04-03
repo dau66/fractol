@@ -6,25 +6,24 @@
 /*   By: ksho <ksho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 15:51:48 by ksho              #+#    #+#             */
-/*   Updated: 2023/10/07 13:56:49 by ksho             ###   ########.fr       */
+/*   Updated: 2023/07/07 17:27:22 by ksho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-int	ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(char *s, int fd)
 {
 	size_t	i;
 
 	i = 0;
 	if (s == NULL)
-		return (0);
+		return ;
 	while (s[i] != '\0')
 	{
 		write(fd, &s[i], 1);
 		i++;
 	}
-	return (i);
 }
 
 // int	main(void)

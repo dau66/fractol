@@ -1,4 +1,4 @@
-INCFLAGS = /opt/X11/include/X11/
+INCFLAGS = -I/opt/X11/include/X11/
 UNAME := $(shell uname)
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx_Darwin.a
@@ -21,9 +21,10 @@ OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 INCLUDE = /opt/X11/include/X11
 
 LFLAGS = -I libft -L libft -lft \
-         -I $(INCFLAGS) \
-         -I /usr/local/include -L /usr/local/lib  \
-         -L ./minilibx -l mlx -framework OpenGL -framework Appkit -L /opt/X11/lib -lX11
+        -I $(INCFLAGS) \
+        -L ./minilibx -lmlx -framework OpenGL -framework AppKit -L /opt/X11/lib -lX11
+
+LFLAGS += -lX11 -lXext
 
 ifeq ($(UNAME), Darwin)
     # mac
@@ -46,7 +47,6 @@ $(NAME): $(OBJS)
 
 $(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
-
 
 clean:
 	$(RM) -r $(OBJ_DIR)/*.o

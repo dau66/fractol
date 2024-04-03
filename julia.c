@@ -30,15 +30,11 @@ static void	calculate_complex_square(double *a, double *b)
 
 static int	is_julia(double a, double b, double first_x, double first_y)
 {
-	double	_a;
-	double	_b;
 	int		k;
 
 	k = 0;
 	while (k < C_COUNT)
 	{
-		_a = a;
-		_b = b;
 		calculate_complex_square(&a, &b);
 		a += first_x;
 		b += first_y;

@@ -70,10 +70,8 @@ static size_t	stringlen(const char *s, char c, size_t j)
 
 static size_t	strcount(char *s, char c)
 {
-	size_t	i;
 	size_t	count;
 
-	i = 0;
 	count = 0;
 	while (*s != '\0')
 	{
@@ -114,9 +112,7 @@ char	**ft_split(char const *s, char c)
 {
 	char	**strrows;
 	size_t	i;
-	size_t	j;
 
-	j = 0;
 	if (s == NULL)
 		return (NULL);
 	i = strcount((char *)s, c);

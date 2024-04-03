@@ -33,16 +33,12 @@ static int	is_mandelbrot(double x, double y)
 	double	a;
 	double	b;
 	int		k;
-	double	_a;
-	double	_b;
 
 	a = 0;
 	b = 0;
 	k = 0;
 	while (k < C_COUNT)
 	{
-		_a = a;
-		_b = b;
 		calculate_complex_square(&a, &b);
 		a += x;
 		b += y;

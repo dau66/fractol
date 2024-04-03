@@ -6,16 +6,15 @@
 /*   By: ksho <ksho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:42:22 by ksho              #+#    #+#             */
-/*   Updated: 2023/10/07 15:22:23 by ksho             ###   ########.fr       */
+/*   Updated: 2023/06/08 18:12:09 by ksho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include "printf42/ft_printf.h"
 # include <stddef.h>
-
+#include "printf42/ft_printf.h"
 int		ft_isalnum(int a);
 void	ft_bzero(void *s, size_t n);
 int		ft_isalpha(int a);
@@ -25,7 +24,7 @@ int		ft_isprint(int c);
 void	*ft_memset(void *buf, int ch, size_t n);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memchr(const void *s, int c, size_t n);
-long	ft_atol(const char *nptr);
+int		ft_atoi(const char *nptr);
 size_t	ft_strlen(const char *s);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
@@ -49,8 +48,8 @@ char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_strmapi(const char *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
-int		ft_putchar_fd(char *c, int fd);
-int		ft_putstr_fd(char *s, int fd);
+void	ft_putchar_fd(char c, int fd);
+void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int nb, int fd);
 

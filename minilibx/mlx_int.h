@@ -17,7 +17,6 @@
 #ifndef MLX_INT_H
 
 # define MLX_INT_H
-
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
@@ -30,6 +29,20 @@
 # include <sys/shm.h>
 # include <X11/extensions/XShm.h>
 # include <X11/XKBlib.h>
+
+// # include <stdlib.h>
+// # include <stdio.h>
+// # include <string.h>
+// # include <unistd.h>
+// # include <fcntl.h>
+// # include <sys/mman.h>
+// # include </opt/X11/include/X11/Xlib.h>
+// # include </opt/X11/include/X11/Xutil.h>
+// # include <sys/ipc.h>
+// # include <sys/shm.h>
+// # include </opt/X11/include/X11/extensions/X11/XShm.h>
+// # include </opt/X11/include/X11/XKBlib.h>
+
 /* #include	<X11/xpm.h> */
 
 

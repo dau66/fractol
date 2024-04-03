@@ -6,15 +6,14 @@
 /*   By: ksho <ksho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 15:48:22 by ksho              #+#    #+#             */
-/*   Updated: 2023/09/29 18:45:03 by ksho             ###   ########.fr       */
+/*   Updated: 2023/06/06 16:00:21 by ksho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include <unistd.h>
 
-int	ft_putchar_fd(char *c, int fd)
+void	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
-	return (1);
 }

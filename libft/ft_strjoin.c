@@ -41,10 +41,8 @@ char	*ft_strjoin(const char *s1, const char *s2)
 {
 	size_t	i;
 	size_t	j;
-	size_t	k;
 	char	*str;
 
-	k = 0;
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
 	i = count_len(s1);
